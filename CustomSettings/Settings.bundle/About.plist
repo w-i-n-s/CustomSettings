@@ -20,6 +20,24 @@
 			<key>Key</key>
 			<string>hello_test</string>
 		</dict>
+        <dict>
+			<key>Type</key>
+			<string>PSButtonValueSpecifier</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Key</key>
+			<string>button</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSHTMLSpecifier</string>
+			<key>Title</key>
+			<string>HTML</string>
+			<key>Key</key>
+			<string>html</string>
+            <key>File</key>
+			<string>about</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>About</string>

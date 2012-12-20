@@ -194,6 +194,14 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
+    if ([type isEqualToString:@"PSHTMLSpecifier"]) {
+        //custom button
+        NSLog(@"custom button");
+        cell.accessoryView = nil;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    }
+    
     if ([type isEqualToString:@"PSChildPaneSpecifier"]) {
         cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -236,13 +244,18 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         }
     }
     if ([type isEqualToString:@"PSChildPaneSpecifier"]) {
-        
         NSString *fileName = [item objectForKey:@"File"];
         NSLog(@"fileName %@",fileName);
         CLCustomSettingsViewController *csSettingsViewController = [[CLCustomSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
         csSettingsViewController.fileName = fileName;
         csSettingsViewController.title = [item objectForKey:@"Title"];
         [self.navigationController pushViewController:csSettingsViewController animated:YES];
+    }
+    
+    if ([type isEqualToString:@"PSHTMLSpecifier"]) {
+        CLHTMLViewController *htmlViewController = [[CLHTMLViewController alloc] init];
+        htmlViewController.title = [item objectForKey:@"Title"];
+        [self.navigationController pushViewController:htmlViewController animated:YES];
     }
 }
 

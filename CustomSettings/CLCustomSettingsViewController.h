@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CLMultiValueSpecifierViewController.h"
+#import "CLHTMLViewController.h"
 
 @interface CLCustomSettingsViewController : UITableViewController<CLMultiValueSpecifierViewDelegate>
 @property (nonatomic,retain) NSString *fileName;

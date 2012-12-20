@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C70C0095168372100089E0C7 /* CLMultiValueSpecifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C70C0094168372100089E0C7 /* CLMultiValueSpecifierViewController.m */; };
+		C70C00D11683934E0089E0C7 /* CLHTMLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C70C00D01683934E0089E0C7 /* CLHTMLViewController.m */; };
+		C70C00D4168393840089E0C7 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = C70C00D3168393840089E0C7 /* about.html */; };
 		C745EEFE16831E26008BEC42 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C745EEFD16831E26008BEC42 /* UIKit.framework */; };
 		C745EF0016831E26008BEC42 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C745EEFF16831E26008BEC42 /* Foundation.framework */; };
 		C745EF0216831E26008BEC42 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C745EF0116831E26008BEC42 /* CoreGraphics.framework */; };
@@ -24,6 +26,9 @@
 /* Begin PBXFileReference section */
 		C70C0093168372100089E0C7 /* CLMultiValueSpecifierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLMultiValueSpecifierViewController.h; sourceTree = "<group>"; };
 		C70C0094168372100089E0C7 /* CLMultiValueSpecifierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLMultiValueSpecifierViewController.m; sourceTree = "<group>"; };
+		C70C00CF1683934E0089E0C7 /* CLHTMLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLHTMLViewController.h; sourceTree = "<group>"; };
+		C70C00D01683934E0089E0C7 /* CLHTMLViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLHTMLViewController.m; sourceTree = "<group>"; };
+		C70C00D3168393840089E0C7 /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
 		C745EEF916831E26008BEC42 /* CustomSettings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomSettings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C745EEFD16831E26008BEC42 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C745EEFF16831E26008BEC42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -93,6 +98,8 @@
 				C745EF1D16831E5D008BEC42 /* CLCustomSettingsViewController.m */,
 				C70C0093168372100089E0C7 /* CLMultiValueSpecifierViewController.h */,
 				C70C0094168372100089E0C7 /* CLMultiValueSpecifierViewController.m */,
+				C70C00CF1683934E0089E0C7 /* CLHTMLViewController.h */,
+				C70C00D01683934E0089E0C7 /* CLHTMLViewController.m */,
 			);
 			path = CustomSettings;
 			sourceTree = "<group>";
@@ -108,6 +115,7 @@
 				C745EF1116831E27008BEC42 /* Default@2x.png */,
 				C745EF1316831E27008BEC42 /* Default-568h@2x.png */,
 				C745EF1A16831E3F008BEC42 /* Settings.bundle */,
+				C70C00D3168393840089E0C7 /* about.html */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -169,6 +177,7 @@
 				C745EF1216831E27008BEC42 /* Default@2x.png in Resources */,
 				C745EF1416831E27008BEC42 /* Default-568h@2x.png in Resources */,
 				C745EF1B16831E3F008BEC42 /* Settings.bundle in Resources */,
+				C70C00D4168393840089E0C7 /* about.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +192,7 @@
 				C745EF0E16831E26008BEC42 /* CLAppDelegate.m in Sources */,
 				C745EF1E16831E5D008BEC42 /* CLCustomSettingsViewController.m in Sources */,
 				C70C0095168372100089E0C7 /* CLMultiValueSpecifierViewController.m in Sources */,
+				C70C00D11683934E0089E0C7 /* CLHTMLViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
