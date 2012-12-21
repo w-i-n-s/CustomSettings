@@ -27,6 +27,18 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     return self;
 }
 
+- (id)initWithBundle:(NSString *)bundle andFile:(NSString *)fileName{
+    self = [super initWithStyle:UITableViewStyleGrouped];
+    if (self) {
+        self.title = NSLocalizedString(@"Settings", @"Settings");
+        self.userPrefs = [NSUserDefaults standardUserDefaults];
+        self.bundle = bundle;
+        self.fileName = fileName;
+    }
+    return self;
+}
+
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -45,7 +57,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         self.fileName = @"Root";
     }
 	
-    NSString *path = [self getSettingFileAtBundle:@"Settings.bundle" withFile:self.fileName];
+    NSString *path = [self getSettingFileAtBundle:self.bundle withFile:self.fileName];
     
     NSDictionary *settingsBundle = [NSDictionary dictionaryWithContentsOfFile:path];
     

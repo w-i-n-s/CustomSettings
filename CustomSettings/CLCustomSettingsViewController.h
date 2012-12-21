@@ -15,6 +15,7 @@
 @protocol CLCustomSettingsViewControllerDelegate;
 @interface CLCustomSettingsViewController : UITableViewController<CLMultiValueSpecifierViewDelegate>
 @property (nonatomic,retain) NSString *fileName;
+@property (nonatomic,retain) NSString *bundle;
 @property (nonatomic,retain) id<CLCustomSettingsViewControllerDelegate> delegate;
 @end
 
