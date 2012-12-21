@@ -9,6 +9,8 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string></string>
+			<key>Key</key>
+			<string>section_about</string>
 		</dict>
 		<dict>
 			<key>DefaultValue</key>
@@ -20,7 +22,7 @@
 			<key>Key</key>
 			<string>hello_test</string>
 		</dict>
-        <dict>
+		<dict>
 			<key>Type</key>
 			<string>PSButtonValueSpecifier</string>
 			<key>Title</key>
@@ -35,8 +37,16 @@
 			<string>HTML</string>
 			<key>Key</key>
 			<string>html</string>
-            <key>File</key>
+			<key>File</key>
 			<string>about</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSViewSpecifier</string>
+			<key>Key</key>
+			<string>custom_view</string>
+			<key>Title</key>
+			<string>Custom View</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

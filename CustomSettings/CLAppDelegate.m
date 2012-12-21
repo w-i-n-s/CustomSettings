@@ -7,7 +7,6 @@
 //
 
 #import "CLAppDelegate.h"
-#import "CLCustomSettingsViewController.h"
 
 @implementation CLAppDelegate
 
@@ -23,11 +22,46 @@
     // Override point for customization after application launch.
     
     CLCustomSettingsViewController *settingViewController = [[CLCustomSettingsViewController alloc] init];
+    settingViewController.delegate = self;
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:settingViewController];
     self.window.rootViewController = navController;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView viewForHeaderForKey:(NSString *)key{
+    NSLog(@"Header %@",key);
+    if (key!=nil && [key isEqualToString:@"section_about"]) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 200)];
+        //view.backgroundColor = [UIColor whiteColor];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.jpg"]];
+        //imageView.frame = view.frame;
+        CGFloat left = (view.frame.size.width - imageView.frame.size.width)/2;
+        CGFloat height = (view.frame.size.height - imageView.frame.size.height)/2;
+        imageView.frame  = CGRectMake(left, height, imageView.frame.size.width, imageView.frame.size.height);
+        [view addSubview:imageView];
+        return view;
+    }
+    return nil;
+}
+
+- (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
+                        tableView:(UITableView *)tableView
+            heightForHeaderForKey:(NSString *)key{
+    if (key!=nil && [key isEqualToString:@"section_about"]) {
+        return 200;
+    }
+    NSLog(@"tableView.sectionHeaderHeight %f",tableView.sectionHeaderHeight);
+    return 22;//tableView.sectionHeaderHeight;
+}
+
+- (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView heightForFooterForKey:(NSString *)key{
+    return 22;
+}
+
+- (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView viewForFooterForKey:(NSString *)key{
+    return nil;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -21,6 +21,8 @@
 		C745EF1416831E27008BEC42 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C745EF1316831E27008BEC42 /* Default-568h@2x.png */; };
 		C745EF1B16831E3F008BEC42 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C745EF1A16831E3F008BEC42 /* Settings.bundle */; };
 		C745EF1E16831E5D008BEC42 /* CLCustomSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C745EF1D16831E5D008BEC42 /* CLCustomSettingsViewController.m */; };
+		C783FA891683FAEF0013B8CC /* CLSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C783FA881683FAEF0013B8CC /* CLSwitch.m */; };
+		C783FAA316840F870013B8CC /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C783FAA216840F870013B8CC /* logo.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,9 @@
 		C745EF1A16831E3F008BEC42 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		C745EF1C16831E5D008BEC42 /* CLCustomSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLCustomSettingsViewController.h; sourceTree = "<group>"; };
 		C745EF1D16831E5D008BEC42 /* CLCustomSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLCustomSettingsViewController.m; sourceTree = "<group>"; };
+		C783FA871683FAEF0013B8CC /* CLSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSwitch.h; sourceTree = "<group>"; };
+		C783FA881683FAEF0013B8CC /* CLSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSwitch.m; sourceTree = "<group>"; };
+		C783FAA216840F870013B8CC /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +105,8 @@
 				C70C0094168372100089E0C7 /* CLMultiValueSpecifierViewController.m */,
 				C70C00CF1683934E0089E0C7 /* CLHTMLViewController.h */,
 				C70C00D01683934E0089E0C7 /* CLHTMLViewController.m */,
+				C783FA871683FAEF0013B8CC /* CLSwitch.h */,
+				C783FA881683FAEF0013B8CC /* CLSwitch.m */,
 			);
 			path = CustomSettings;
 			sourceTree = "<group>";
@@ -107,6 +114,7 @@
 		C745EF0416831E26008BEC42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C783FAA216840F870013B8CC /* logo.jpg */,
 				C745EF0516831E26008BEC42 /* CustomSettings-Info.plist */,
 				C745EF0616831E26008BEC42 /* InfoPlist.strings */,
 				C745EF0916831E26008BEC42 /* main.m */,
@@ -178,6 +186,7 @@
 				C745EF1416831E27008BEC42 /* Default-568h@2x.png in Resources */,
 				C745EF1B16831E3F008BEC42 /* Settings.bundle in Resources */,
 				C70C00D4168393840089E0C7 /* about.html in Resources */,
+				C783FAA316840F870013B8CC /* logo.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +202,7 @@
 				C745EF1E16831E5D008BEC42 /* CLCustomSettingsViewController.m in Sources */,
 				C70C0095168372100089E0C7 /* CLMultiValueSpecifierViewController.m in Sources */,
 				C70C00D11683934E0089E0C7 /* CLHTMLViewController.m in Sources */,
+				C783FA891683FAEF0013B8CC /* CLSwitch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +274,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CustomSettings/CustomSettings-Prefix.pch";
 				INFOPLIST_FILE = "CustomSettings/CustomSettings-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -275,6 +286,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CustomSettings/CustomSettings-Prefix.pch";
 				INFOPLIST_FILE = "CustomSettings/CustomSettings-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

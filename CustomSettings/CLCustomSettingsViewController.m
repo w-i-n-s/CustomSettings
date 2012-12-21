@@ -13,7 +13,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
 @interface CLCustomSettingsViewController (){
     NSMutableArray *dataSource;
 }
-
+@property (nonatomic,retain) NSUserDefaults *userPrefs;
 @end
 
 @implementation CLCustomSettingsViewController
@@ -22,6 +22,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     self = [super initWithStyle:UITableViewStyleGrouped];
     if (self) {
         self.title = NSLocalizedString(@"Settings", @"Settings");
+        self.userPrefs = [NSUserDefaults standardUserDefaults];
     }
     return self;
 }
@@ -82,6 +83,37 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         }
     }
     NSLog(@"dataSource %d",[dataSource count]);
+    NSLog(@"height: %f",self.tableView.sectionHeaderHeight);
+    //[self regisiterDefaultsChangeEvnet];
+//    [[NSUserDefaults standardUserDefaults] addObserver:self
+//                                            forKeyPath:@"enabled_preference"
+//                                               options:NSKeyValueObservingOptionNew
+//                                               context:NULL];
+}
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+}
+
+- (void)observeValueForKeyPath:(NSString *) keyPath ofObject:(id) object change:(NSDictionary *) change context:(void *) context
+{
+    if([keyPath isEqual:@"enabled_preference"])
+    {
+        NSLog(@"SomeKey change: %@", change);
+    }
+}
+- (void)regisiterDefaultsChangeEvnet{
+    NSLog(@"+regisiterDefaultsChangeEvnet");
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center addObserver:self selector:@selector(defaultsChanged:)  name:NSUserDefaultsDidChangeNotification object:nil];
+    NSLog(@"-regisiterDefaultsChangeEvnet");
+}
+
+- (void)defaultsChanged:(NSNotification *)notification {
+    NSLog(@"+defaultsChanged");
+    // Get the user defaults
+    NSUserDefaults *defaults = (NSUserDefaults *)[notification object];
+    NSLog(@"defaults: %@",defaults);
+    NSLog(@"-defaultsChanged");
 }
 
 -(NSString *)getSettingFileAtBundle:(NSString *)bundle withFile:(NSString *)fileName{
@@ -119,6 +151,42 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     return [item objectForKey:@"Title"];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:section] objectAtIndex:0];
+    NSString *key = [item objectForKey:@"Key"];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForKey:)]) {
+        
+        return [self.delegate settingsViewController:self tableView:tableView heightForHeaderForKey:key];
+    }
+    
+    return tableView.sectionHeaderHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:section] objectAtIndex:0];
+    NSString *key = [item objectForKey:@"Key"];
+    
+    UIView *view = nil;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForKey:)]) {
+        view = [self.delegate settingsViewController:self tableView:tableView viewForHeaderForKey:key];
+    }
+    
+    return view;
+};
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:section] objectAtIndex:0];
+    NSString *key = [item objectForKey:@"Key"];
+    UIView *view = nil;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForFooterForKey:::)]) {
+        view = [self.delegate settingsViewController:self tableView:tableView viewForFooterForKey:key];
+    }
+    
+    return view;
+};
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
@@ -129,7 +197,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
     NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
-    NSLog(@"item: %@",item);
+    //NSLog(@"item: %@",item);
     NSString *type = [item objectForKey:@"Type"];
     
     cell.textLabel.text = [item objectForKey:@"Title"];
@@ -175,8 +243,13 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     if ([type isEqualToString:@"PSToggleSwitchSpecifier"]==YES) {
         NSLog(@"PSToggleSwitchSpecifier");
         //UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-        UISwitch *toggleButton = [[UISwitch alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
-        toggleButton.on = (BOOL)[item objectForKey:@"DefaultValue"];
+        CLSwitch *toggleButton = [[CLSwitch alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
+        [toggleButton addTarget:self
+                         action:@selector(toggleAction:)
+               forControlEvents:UIControlEventValueChanged];
+        //(BOOL)[item objectForKey:@"DefaultValue"];
+        toggleButton.on = [self.userPrefs boolForKey:[item objectForKey:@"Key"]];
+        toggleButton.key = [item objectForKey:@"Key"];
         cell.accessoryView = toggleButton;
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -209,6 +282,14 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
     
     return cell;
+}
+
+#pragma mark - Switch Action
+- (void)toggleAction:(id)sender{
+    CLSwitch *sw = (CLSwitch *)sender;
+    NSLog(@"sender: %@ %d",sw.key,sw.isOn);
+    [self.userPrefs setBool:sw.isOn forKey:sw.key];
+    [self.userPrefs synchronize];
 }
 
 #pragma mark - Table view delegate
@@ -247,6 +328,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         NSString *fileName = [item objectForKey:@"File"];
         NSLog(@"fileName %@",fileName);
         CLCustomSettingsViewController *csSettingsViewController = [[CLCustomSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        csSettingsViewController.delegate = self.delegate;
         csSettingsViewController.fileName = fileName;
         csSettingsViewController.title = [item objectForKey:@"Title"];
         [self.navigationController pushViewController:csSettingsViewController animated:YES];

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CLAppDelegate : UIResponder <UIApplicationDelegate>
+#import "CLCustomSettingsViewController.h"
+@interface CLAppDelegate : UIResponder <UIApplicationDelegate,CLCustomSettingsViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
