@@ -243,6 +243,8 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         //(BOOL)[item objectForKey:@"DefaultValue"];
         toggleButton.on = [self.userPrefs boolForKey:[item objectForKey:@"Key"]];
         toggleButton.key = [item objectForKey:@"Key"];
+        toggleButton.indexPath = indexPath;
+        
         cell.accessoryView = toggleButton;
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
@@ -258,7 +260,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PSButtonValueSpecifier"];
         NSString *custom = [item objectForKey:@"Custom"];
         if ([custom isEqualToString:@"Custom"]) {
-            UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            CLButton *customButton = [CLButton buttonWithType:UIButtonTypeCustom];
             customButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
             
             if ([item objectForKey:@"bg"]) {
@@ -270,15 +272,19 @@ static NSString *kCellIdentifier = @"MyIdentifier";
                 UIImage *bghl = [UIImage imageNamed:[item objectForKey:@"bg_highlighted"]];
                 [customButton setBackgroundImage:[bghl stretchableImageWithLeftCapWidth:bghl.size.width/2 topCapHeight:bghl.size.height/2] forState:UIControlStateHighlighted];
             }
-            
+            [customButton addTarget:self action:@selector(tapButtonAction:) forControlEvents:UIControlEventTouchUpInside];
             [customButton setTitle:[item objectForKey:@"Title"] forState:UIControlStateNormal];
             customButton.frame = CGRectMake(0, -2 , cell.frame.size.width , cell.frame.size.height);
+            
+            customButton.key = [item objectForKey:@"Key"];
+            customButton.indexPath = indexPath;
             
             cell.textLabel.text = nil;
             [cell addSubview:customButton];
         }
         
         NSNumber *align = [item objectForKey:@"Align"];
+        
         
         cell.textLabel.text = [item objectForKey:@"Title"];
         cell.textLabel.textAlignment = [align intValue];
@@ -304,11 +310,39 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     return cell;
 }
 
+- (void)itemValueChanged:(id)item{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsItemDidChanged:WithSettingsViewController:tableView:)]) {
+        [self.delegate settingsItemDidChanged:item WithSettingsViewController:self tableView:self.tableView];
+    }
+}
+
+- (void)tapButtonForItem:(id)item{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(tapButtonforItem:WithSettingsViewController:tableView:)]) {
+        [self.delegate tapButtonforItem:item WithSettingsViewController:self tableView:self.tableView];
+    }
+}
+
+
+- (void)tapButtonAction:(id)sender{
+    NSLog(@"tapButton: %@",sender);
+    CLButton *btn = (CLButton *)sender;
+    
+    NSIndexPath *indexPath = btn.indexPath;
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
+    [self tapButtonForItem:item];
+}
+
 #pragma mark - Switch Action
 - (void)toggleAction:(id)sender{
     CLSwitch *sw = (CLSwitch *)sender;
     [self.userPrefs setBool:sw.isOn forKey:sw.key];
     [self.userPrefs synchronize];
+    
+    NSIndexPath *indexPath = sw.indexPath;
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
+    [item setValue:[NSNumber numberWithBool:sw.isOn]  forKey:@"DefaultValue"];
+    
+    [self itemValueChanged:item];
 }
 
 #pragma mark - Table view delegate
@@ -318,12 +352,12 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
-    NSLog(@"item: %@",item);
+    //NSLog(@"item: %@",item);
     
     NSString *type = [item objectForKey:@"Type"];
-    NSLog(@"type: %@",type);
+    //NSLog(@"type: %@",type);
     NSString *defaultValue = [NSString stringWithFormat:@"%@",[item objectForKey:@"DefaultValue"]];
-    NSLog(@"defaultValue: %@",defaultValue);
+    //NSLog(@"defaultValue: %@",defaultValue);
     
     if ([type isEqualToString:@"PSMultiValueSpecifier"]==YES) {
         NSArray *titles = [item objectForKey:@"Titles"];
@@ -356,6 +390,10 @@ static NSString *kCellIdentifier = @"MyIdentifier";
         htmlViewController.title = [item objectForKey:@"Title"];
         [self.navigationController pushViewController:htmlViewController animated:YES];
     }
+    
+    if ([type isEqualToString:@"PSButtonValueSpecifier"]) {
+        [self tapButtonForItem:item];
+    }
 }
 
 - (void)selectedViewController:(CLMultiValueSpecifierViewController *)viewController atIndexPath:(NSIndexPath *)indexPath{
@@ -366,5 +404,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:viewController.parentIndexPath];
     cell.detailTextLabel.text = title;
+    
+    [self itemValueChanged:item];
 }
 @end

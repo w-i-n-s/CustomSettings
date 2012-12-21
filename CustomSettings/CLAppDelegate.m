@@ -30,6 +30,15 @@
     return YES;
 }
 
+- (void)tapButtonforItem:(id)item WithSettingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView{
+    NSLog(@"tapButtonforItem: %@",item);
+}
+
+- (void)settingsItemDidChanged:(id)item
+    WithSettingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
+                     tableView:(UITableView *)tableView{
+    NSLog(@"item %@",item);
+}
 - (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView viewForHeaderForKey:(NSString *)key{
     if (key!=nil && [key isEqualToString:@"section_about"]) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 200)];

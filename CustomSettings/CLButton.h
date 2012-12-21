@@ -1,5 +1,5 @@
 //
-//  CLSwitch.h
+//  CLButton.h
 //  CustomSettings
 //
 //  Created by Darcy Liu on 12/21/12.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CLSwitch : UISwitch
+@interface CLButton : UIButton
 @property (nonatomic,retain) NSString *key;
 @property (nonatomic,retain) NSIndexPath *indexPath;
 @end

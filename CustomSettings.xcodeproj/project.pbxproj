@@ -25,6 +25,7 @@
 		C783FAA316840F870013B8CC /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C783FAA216840F870013B8CC /* logo.jpg */; };
 		C783FACE168420560013B8CC /* btn_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C783FACC168420560013B8CC /* btn_bg@2x.png */; };
 		C783FACF168420560013B8CC /* btn_bg_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C783FACD168420560013B8CC /* btn_bg_highlighted@2x.png */; };
+		C783FAEB168462510013B8CC /* CLButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C783FAEA168462500013B8CC /* CLButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		C783FAA216840F870013B8CC /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
 		C783FACC168420560013B8CC /* btn_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg@2x.png"; sourceTree = "<group>"; };
 		C783FACD168420560013B8CC /* btn_bg_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_highlighted@2x.png"; sourceTree = "<group>"; };
+		C783FAE9168462500013B8CC /* CLButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLButton.h; sourceTree = "<group>"; };
+		C783FAEA168462500013B8CC /* CLButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLButton.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				C70C00D01683934E0089E0C7 /* CLHTMLViewController.m */,
 				C783FA871683FAEF0013B8CC /* CLSwitch.h */,
 				C783FA881683FAEF0013B8CC /* CLSwitch.m */,
+				C783FAE9168462500013B8CC /* CLButton.h */,
+				C783FAEA168462500013B8CC /* CLButton.m */,
 			);
 			path = CustomSettings;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 				C70C0095168372100089E0C7 /* CLMultiValueSpecifierViewController.m in Sources */,
 				C70C00D11683934E0089E0C7 /* CLHTMLViewController.m in Sources */,
 				C783FA891683FAEF0013B8CC /* CLSwitch.m in Sources */,
+				C783FAEB168462510013B8CC /* CLButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
