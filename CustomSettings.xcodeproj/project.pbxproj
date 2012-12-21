@@ -23,6 +23,8 @@
 		C745EF1E16831E5D008BEC42 /* CLCustomSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C745EF1D16831E5D008BEC42 /* CLCustomSettingsViewController.m */; };
 		C783FA891683FAEF0013B8CC /* CLSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = C783FA881683FAEF0013B8CC /* CLSwitch.m */; };
 		C783FAA316840F870013B8CC /* logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C783FAA216840F870013B8CC /* logo.jpg */; };
+		C783FACE168420560013B8CC /* btn_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C783FACC168420560013B8CC /* btn_bg@2x.png */; };
+		C783FACF168420560013B8CC /* btn_bg_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C783FACD168420560013B8CC /* btn_bg_highlighted@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		C783FA871683FAEF0013B8CC /* CLSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLSwitch.h; sourceTree = "<group>"; };
 		C783FA881683FAEF0013B8CC /* CLSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLSwitch.m; sourceTree = "<group>"; };
 		C783FAA216840F870013B8CC /* logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = logo.jpg; sourceTree = "<group>"; };
+		C783FACC168420560013B8CC /* btn_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg@2x.png"; sourceTree = "<group>"; };
+		C783FACD168420560013B8CC /* btn_bg_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_bg_highlighted@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,7 @@
 		C745EF0316831E26008BEC42 /* CustomSettings */ = {
 			isa = PBXGroup;
 			children = (
+				C783FACB168420560013B8CC /* Images */,
 				C745EF0C16831E26008BEC42 /* CLAppDelegate.h */,
 				C745EF0D16831E26008BEC42 /* CLAppDelegate.m */,
 				C745EF0416831E26008BEC42 /* Supporting Files */,
@@ -126,6 +131,15 @@
 				C70C00D3168393840089E0C7 /* about.html */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C783FACB168420560013B8CC /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C783FACC168420560013B8CC /* btn_bg@2x.png */,
+				C783FACD168420560013B8CC /* btn_bg_highlighted@2x.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +201,8 @@
 				C745EF1B16831E3F008BEC42 /* Settings.bundle in Resources */,
 				C70C00D4168393840089E0C7 /* about.html in Resources */,
 				C783FAA316840F870013B8CC /* logo.jpg in Resources */,
+				C783FACE168420560013B8CC /* btn_bg@2x.png in Resources */,
+				C783FACF168420560013B8CC /* btn_bg_highlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

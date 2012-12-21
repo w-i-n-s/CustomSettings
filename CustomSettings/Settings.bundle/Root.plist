@@ -5,14 +5,6 @@
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string></string>
-			<key>Key</key>
-			<string></string>
-		</dict>
-		<dict>
 			<key>Title</key>
 			<string>Group</string>
 			<key>Type</key>
@@ -78,9 +70,9 @@
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
-			<string>Multi</string>
+			<string>Font Size</string>
 			<key>Key</key>
-			<string>experience_preference</string>
+			<string>preference_font_size</string>
 			<key>DefaultValue</key>
 			<string>1</string>
 		</dict>
@@ -91,26 +83,18 @@
 			<string></string>
 		</dict>
 		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<key>AccessoryType</key>
+			<integer>1</integer>
 			<key>DefaultValue</key>
-			<string>1.1</string>
-			<key>Title</key>
-			<string>Version</string>
-			<key>Key</key>
-			<string>version</string>
-		</dict>
-		<dict>
-			<key>DefaultValue</key>
-			<string>Darcy</string>
-			<key>Align</key>
-			<string>Left</string>
+			<string>Feedback</string>
+			<key>Custom</key>
+			<string></string>
 			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
+			<string>PSButtonValueSpecifier</string>
 			<key>Title</key>
-			<string>Copyright</string>
+			<string>Feedback</string>
 			<key>Key</key>
-			<string>copyright</string>
+			<string>feedback</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -119,6 +103,26 @@
 			<string>About</string>
 			<key>File</key>
 			<string>About</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>bg_highlighted</key>
+			<string>btn_bg_highlighted</string>
+			<key>bg</key>
+			<string>btn_bg</string>
+			<key>Custom</key>
+			<string>Custom</string>
+			<key>Type</key>
+			<string>PSButtonValueSpecifier</string>
+			<key>Title</key>
+			<string>Button</string>
+			<key>Key</key>
+			<string>button</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>

@@ -52,22 +52,19 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     
     //NSLog(@"%@",settingsBundle);
     
-    //#define kIASKPSGroupSpecifier                 @"PSGroupSpecifier"
-    //#define kIASKPSToggleSwitchSpecifier          @"PSToggleSwitchSpecifier"
-    //#define kIASKPSMultiValueSpecifier            @"PSMultiValueSpecifier"
-    //#define kIASKPSSliderSpecifier                @"PSSliderSpecifier"
-    //#define kIASKPSTitleValueSpecifier            @"PSTitleValueSpecifier"
-    //#define kIASKPSTextFieldSpecifier             @"PSTextFieldSpecifier"
-    //#define kIASKPSChildPaneSpecifier             @"PSChildPaneSpecifier"
+    //@"PSGroupSpecifier"
+    //@"PSToggleSwitchSpecifier"
+    //@"PSMultiValueSpecifier"
+    //@"PSSliderSpecifier"
+    //@"PSTitleValueSpecifier"
+    //@"PSTextFieldSpecifier"
+    //@"PSChildPaneSpecifier"
     
     NSInteger numberOfSection = -1;
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:@"PreferenceSpecifiers"];
 	dataSource = [[NSMutableArray alloc] init];
 	
 	for (NSDictionary *specifier in preferenceSpecifiers) {
-        //NSLog(@"specifier %@",specifier);
-        
-        
         if ([(NSString*)[specifier objectForKey:@"Type"] isEqualToString:@"PSGroupSpecifier"]) {
             NSMutableArray *groupContainer = [[NSMutableArray alloc] init];
             [groupContainer addObject:specifier];
@@ -161,6 +158,15 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
     
     return tableView.sectionHeaderHeight;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
+    NSString *type = [item objectForKey:@"Type"];
+    if ([type isEqualToString:@"PSButtonValueSpecifier"]) {
+        return tableView.rowHeight - 4;
+    }
+    return tableView.rowHeight;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -263,15 +269,38 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     if ([type isEqualToString:@"PSButtonValueSpecifier"]) {
         //custom button
         NSLog(@"custom button");
+        NSString *custom = [item objectForKey:@"Custom"];
+        if ([custom isEqualToString:@"Custom"]) {
+            UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            customButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+            
+            if ([item objectForKey:@"bg"]) {
+                UIImage *bg = [UIImage imageNamed:[item objectForKey:@"bg"]];
+                [customButton setBackgroundImage:[bg stretchableImageWithLeftCapWidth:bg.size.width/2 topCapHeight:bg.size.height/2]  forState:UIControlStateNormal];
+            }
+            
+            if ([item objectForKey:@"bg_highlighted"]) {
+                UIImage *bghl = [UIImage imageNamed:[item objectForKey:@"bg_highlighted"]];
+                [customButton setBackgroundImage:[bghl stretchableImageWithLeftCapWidth:bghl.size.width/2 topCapHeight:bghl.size.height/2] forState:UIControlStateHighlighted];
+            }
+            
+            [customButton setTitle:[item objectForKey:@"Title"] forState:UIControlStateNormal];
+            customButton.frame = CGRectMake(0, -2 , cell.frame.size.width , cell.frame.size.height);
+            
+            cell.textLabel.text = nil;
+            [cell addSubview:customButton];
+        }
+        NSNumber *accessoryType = [item objectForKey:@"AccessoryType"];
         cell.accessoryView = nil;
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryType = [accessoryType intValue];//UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     
     if ([type isEqualToString:@"PSHTMLSpecifier"]) {
         //custom button
         NSLog(@"custom button");
         cell.accessoryView = nil;
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
     }
     

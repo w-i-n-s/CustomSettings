@@ -12,23 +12,27 @@
 			<key>Key</key>
 			<string>section_about</string>
 		</dict>
+        <dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>DefaultValue</key>
+			<string>1.1</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Key</key>
+			<string>version</string>
+		</dict>
 		<dict>
 			<key>DefaultValue</key>
-			<string>abcdefg</string>
+			<string>Darcy</string>
+			<key>Align</key>
+			<string>Left</string>
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
 			<key>Title</key>
-			<string>abcdefg</string>
+			<string>Copyright</string>
 			<key>Key</key>
-			<string>hello_test</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSButtonValueSpecifier</string>
-			<key>Title</key>
-			<string>Button</string>
-			<key>Key</key>
-			<string>button</string>
+			<string>copyright</string>
 		</dict>
 		<dict>
 			<key>Type</key>
