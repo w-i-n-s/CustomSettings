@@ -46,19 +46,8 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
 	
     NSString *path = [self getSettingFileAtBundle:@"Settings.bundle" withFile:self.fileName];
-    NSLog(@"path: %@",path);
     
     NSDictionary *settingsBundle = [NSDictionary dictionaryWithContentsOfFile:path];
-    
-    //NSLog(@"%@",settingsBundle);
-    
-    //@"PSGroupSpecifier"
-    //@"PSToggleSwitchSpecifier"
-    //@"PSMultiValueSpecifier"
-    //@"PSSliderSpecifier"
-    //@"PSTitleValueSpecifier"
-    //@"PSTextFieldSpecifier"
-    //@"PSChildPaneSpecifier"
     
     NSInteger numberOfSection = -1;
     NSArray *preferenceSpecifiers	= [settingsBundle objectForKey:@"PreferenceSpecifiers"];
@@ -79,8 +68,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
             [(NSMutableArray*)[dataSource objectAtIndex:numberOfSection] addObject:specifier];
         }
     }
-    NSLog(@"dataSource %d",[dataSource count]);
-    NSLog(@"height: %f",self.tableView.sectionHeaderHeight);
+
     //[self regisiterDefaultsChangeEvnet];
 //    [[NSUserDefaults standardUserDefaults] addObserver:self
 //                                            forKeyPath:@"enabled_preference"
@@ -150,11 +138,12 @@ static NSString *kCellIdentifier = @"MyIdentifier";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:section] objectAtIndex:0];
-    NSString *key = [item objectForKey:@"Key"];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:viewForHeaderForKey:)]) {
-        
-        return [self.delegate settingsViewController:self tableView:tableView heightForHeaderForKey:key];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(settingsViewController:tableView:heightForHeaderForItem:inSection:)]) {
+        return [self.delegate settingsViewController:self
+                                           tableView:tableView
+                              heightForHeaderForItem:item
+                                         inSection:section];
     }
     
     return tableView.sectionHeaderHeight;
@@ -198,12 +187,12 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
 	if (cell == nil)
 	{
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:kCellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
     NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row+1];
-    //NSLog(@"item: %@",item);
+
     NSString *type = [item objectForKey:@"Type"];
     
     cell.textLabel.text = [item objectForKey:@"Title"];
@@ -247,8 +236,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
     
     if ([type isEqualToString:@"PSToggleSwitchSpecifier"]==YES) {
-        NSLog(@"PSToggleSwitchSpecifier");
-        //UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
         CLSwitch *toggleButton = [[CLSwitch alloc] initWithFrame:CGRectMake(0, 0, 100, 44)];
         [toggleButton addTarget:self
                          action:@selector(toggleAction:)
@@ -268,7 +255,7 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     
     if ([type isEqualToString:@"PSButtonValueSpecifier"]) {
         //custom button
-        NSLog(@"custom button");
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"PSButtonValueSpecifier"];
         NSString *custom = [item objectForKey:@"Custom"];
         if ([custom isEqualToString:@"Custom"]) {
             UIButton *customButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -290,6 +277,12 @@ static NSString *kCellIdentifier = @"MyIdentifier";
             cell.textLabel.text = nil;
             [cell addSubview:customButton];
         }
+        
+        NSNumber *align = [item objectForKey:@"Align"];
+        
+        cell.textLabel.text = [item objectForKey:@"Title"];
+        cell.textLabel.textAlignment = [align intValue];
+        
         NSNumber *accessoryType = [item objectForKey:@"AccessoryType"];
         cell.accessoryView = nil;
         cell.accessoryType = [accessoryType intValue];//UITableViewCellAccessoryNone;
@@ -297,8 +290,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
     
     if ([type isEqualToString:@"PSHTMLSpecifier"]) {
-        //custom button
-        NSLog(@"custom button");
         cell.accessoryView = nil;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -316,7 +307,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
 #pragma mark - Switch Action
 - (void)toggleAction:(id)sender{
     CLSwitch *sw = (CLSwitch *)sender;
-    NSLog(@"sender: %@ %d",sw.key,sw.isOn);
     [self.userPrefs setBool:sw.isOn forKey:sw.key];
     [self.userPrefs synchronize];
 }
@@ -336,7 +326,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     NSLog(@"defaultValue: %@",defaultValue);
     
     if ([type isEqualToString:@"PSMultiValueSpecifier"]==YES) {
-        NSLog(@"PSMultiValueSpecifier selected");
         NSArray *titles = [item objectForKey:@"Titles"];
         NSArray *values = [item objectForKey:@"Values"];
         
@@ -355,7 +344,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
     }
     if ([type isEqualToString:@"PSChildPaneSpecifier"]) {
         NSString *fileName = [item objectForKey:@"File"];
-        NSLog(@"fileName %@",fileName);
         CLCustomSettingsViewController *csSettingsViewController = [[CLCustomSettingsViewController alloc] initWithStyle:UITableViewStyleGrouped];
         csSettingsViewController.delegate = self.delegate;
         csSettingsViewController.fileName = fileName;
@@ -371,8 +359,6 @@ static NSString *kCellIdentifier = @"MyIdentifier";
 }
 
 - (void)selectedViewController:(CLMultiValueSpecifierViewController *)viewController atIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"key %@",viewController.key);
-    NSLog(@"%@",indexPath);
     NSDictionary *item = (NSDictionary *)[[dataSource objectAtIndex:viewController.parentIndexPath.section] objectAtIndex:viewController.parentIndexPath.row+1];
     NSString *title = [viewController.titles objectAtIndex:indexPath.row];
     NSString *value = [viewController.values objectAtIndex:indexPath.row];

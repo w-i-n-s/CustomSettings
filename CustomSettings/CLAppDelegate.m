@@ -31,7 +31,6 @@
 }
 
 - (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView viewForHeaderForKey:(NSString *)key{
-    NSLog(@"Header %@",key);
     if (key!=nil && [key isEqualToString:@"section_about"]) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 200)];
         //view.backgroundColor = [UIColor whiteColor];
@@ -48,16 +47,28 @@
 
 - (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
                         tableView:(UITableView *)tableView
-            heightForHeaderForKey:(NSString *)key{
+           heightForHeaderForItem:(id)item inSection:(NSInteger)section{
+    NSDictionary *obj = (NSDictionary *)item;
+    NSString *key = [obj objectForKey:@"Key"];
+    NSString *title = [obj objectForKey:@"Title"];
     if (key!=nil && [key isEqualToString:@"section_about"]) {
         return 200;
     }
-    NSLog(@"tableView.sectionHeaderHeight %f",tableView.sectionHeaderHeight);
-    return 22;//tableView.sectionHeaderHeight;
+
+    if (title !=nil && ![title isEqualToString:@""]) {
+        return 22;
+    }
+    return tableView.sectionHeaderHeight;
 }
 
-- (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView heightForFooterForKey:(NSString *)key{
-    return 22;
+- (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView heightForFooterForItem:(id)item inSection:(NSInteger)section{
+    NSDictionary *obj = (NSDictionary *)item;
+    //NSString *key = [obj objectForKey:@"Key"];
+    NSString *title = [obj objectForKey:@"Title"];
+    if (title !=nil) {
+        return 22;
+    }
+    return tableView.sectionFooterHeight;
 }
 
 - (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller tableView:(UITableView *)tableView viewForFooterForKey:(NSString *)key{

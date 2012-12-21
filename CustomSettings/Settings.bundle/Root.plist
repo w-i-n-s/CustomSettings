@@ -111,6 +111,22 @@
 			<string></string>
 		</dict>
 		<dict>
+			<key>Align</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>PSButtonValueSpecifier</string>
+			<key>Title</key>
+			<string>Clear</string>
+			<key>Key</key>
+			<string>clear</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
 			<key>bg_highlighted</key>
 			<string>btn_bg_highlighted</string>
 			<key>bg</key>

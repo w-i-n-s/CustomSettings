@@ -21,11 +21,13 @@
 
 - (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
                         tableView:(UITableView *)tableView
-            heightForHeaderForKey:(NSString *)key;
+           heightForHeaderForItem:(id)item
+                        inSection:(NSInteger)section;
 
 - (CGFloat)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
                         tableView:(UITableView *)tableView
-            heightForFooterForKey:(NSString *)key;
+           heightForFooterForItem:(id)item
+                        inSection:(NSInteger)section;
 
 - (UIView *)settingsViewController:(CLCustomSettingsViewController *)settingsViewContoller
                          tableView:(UITableView *)tableView
